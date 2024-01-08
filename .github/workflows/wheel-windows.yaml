@@ -26,4 +26,7 @@ jobs:
       with:
         file: "*.whl"
         release_id: 0
-        'update_latest_release': true
+        tag_name: '20231205'
+        prerelease: false
+        update_latest_release: true
+        default_release_body: 'Wheels precompiled for different versions of Python under Windows and Linux (Ubuntu).'
