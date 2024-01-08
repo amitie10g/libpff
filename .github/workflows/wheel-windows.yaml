@@ -14,11 +14,17 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python_version }}
-    - run: pip install setuptools wheel
-    - run: python setup.py bdist_wheel
-    - run: ls
+    - run:  pip wheel libpff-python
     - uses: actions/upload-artifact@v4
       with:
         name: 20231205-${{ matrix.python_version }}-${{ matrix.os }}
         path: "*.whl"
         compression-level: 9
+    - uses: xresloader/upload-to-github-release@v1.4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "*.whl"
+        tags: true
+        tag_name: '20231205'
+        'update_latest_release': true
