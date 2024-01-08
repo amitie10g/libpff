@@ -1,4 +1,4 @@
-name: Build wheel from package fro Windows
+name: Build wheel from package to artifacts and releases
 on: [push]
 
 jobs:
