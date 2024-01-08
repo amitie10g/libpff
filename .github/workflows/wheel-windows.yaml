@@ -20,7 +20,7 @@ jobs:
         name: 20231205-${{ matrix.python_version }}-${{ matrix.os }}
         path: "*.whl"
         compression-level: 9
-    - uses: xresloader/upload-to-github-release@v1.4
+    - uses: xresloader/upload-to-github-release@v1.4.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
