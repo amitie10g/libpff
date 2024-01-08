@@ -28,5 +28,6 @@ jobs:
         release_id: 0
         tag_name: '20231205'
         prerelease: false
+        draft: false
         update_latest_release: true
         default_release_body: 'Wheels precompiled for different versions of Python under Windows and Linux (Ubuntu).'
