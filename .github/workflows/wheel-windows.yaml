@@ -2,12 +2,12 @@ name: Build wheel from package fro Windows
 on: [push]
 
 jobs:
-  build-:
-    runs-on: windows-latest
+  build:
     strategy:
       matrix:
         python_version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-
+        os:             ['windows', 'ubuntu']
+    runs-on: ${{ matrix.os }}-latest
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -17,6 +17,6 @@ jobs:
     - run: pip wheel libpff-python
     - uses: actions/upload-artifact@v4
       with:
-        name: 20231205-${{ matrix.python_version }}
+        name: 20231205-${{ matrix.python_version }}-${{ matrix.os }}
         path: "*.whl"
         compression-level: 9
