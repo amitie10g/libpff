@@ -25,6 +25,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         file: "*.whl"
-        tags: true
-        tag_name: '20231205'
+        release_id: '20231205'
         'update_latest_release': true
