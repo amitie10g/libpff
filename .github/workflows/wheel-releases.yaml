@@ -1,6 +1,12 @@
-name: Build wheel from package to artifacts and releases
-on: [push]
-
+name: Build wheel from package to releases
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Enter the package version number'
+        required: true 
+        default: '20231205'
 jobs:
   build:
     strategy:
@@ -14,19 +20,13 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python_version }}
-    - run:  pip wheel libpff-python
-    - uses: actions/upload-artifact@v4
-      with:
-        name: 20231205-${{ matrix.python_version }}-${{ matrix.os }}
-        path: "*.whl"
-        compression-level: 9
-    - uses: xresloader/upload-to-github-release@v1.4.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run:  pip wheel libpff-python==${{ github.event.inputs.package_version }}
+    - name: 'Upload to Releases'
+      uses: xresloader/upload-to-github-release@v1.4.2
       with:
         file: "*.whl"
         release_id: 0
-        tag_name: '20231205'
+        tag_name: ${{ github.event.inputs.package_version }}
         prerelease: false
         draft: false
         update_latest_release: true
