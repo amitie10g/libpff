@@ -1,4 +1,8 @@
 name: Build wheel from package to releases
+
+env:
+  DEFAULT_PACKAGE_VERSION: '20231205'
+
 on:
   push:
   workflow_dispatch:
@@ -6,7 +10,7 @@ on:
       package_version:
         description: 'Enter the package version number'
         required: true 
-        default: '20231205'
+        default: ${{ env.DEFAULT_PACKAGE_VERSION }}
 jobs:
   build:
     strategy:
@@ -20,13 +24,13 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python_version }}
-    - run:  pip wheel libpff-python==${{ github.event.inputs.package_version }}
+    - run:  pip wheel libpff-python==${{ github.event.inputs.package_version || env.DEFAULT_PACKAGE_VERSION }}
     - name: 'Upload to Releases'
       uses: xresloader/upload-to-github-release@v1.4.2
       with:
         file: "*.whl"
         release_id: 0
-        tag_name: ${{ github.event.inputs.package_version }}
+        tag_name: ${{ github.event.inputs.package_version || env.DEFAULT_PACKAGE_VERSION }}
         prerelease: false
         draft: false
         update_latest_release: true
