@@ -6,8 +6,8 @@ on:
     inputs:
       package_version:
         description: 'Enter the package version number'
-        required: true 
-        default: ${{ env.DEFAULT_PACKAGE_VERSION }}
+        required: true
+
 jobs:
   build:
     strategy:
