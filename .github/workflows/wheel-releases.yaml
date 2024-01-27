@@ -1,8 +1,5 @@
 name: Build wheel from package to releases
 
-env:
-  DEFAULT_PACKAGE_VERSION: '20231205'
-
 on:
   push:
   workflow_dispatch:
@@ -35,3 +32,6 @@ jobs:
         draft: false
         update_latest_release: true
         default_release_body: 'Wheels precompiled for different versions of Python under Windows and Linux (Ubuntu).'
+
+env:
+  DEFAULT_PACKAGE_VERSION: '20231205'
