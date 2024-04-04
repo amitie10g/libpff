@@ -2,11 +2,7 @@ name: Build wheel from package to releases
 
 on:
   push:
-  workflow_dispatch:
-    inputs:
-      package_version:
-        description: 'Enter the package version number'
-        required: true
+    tags: ['*']
 
 jobs:
   build:
@@ -16,18 +12,18 @@ jobs:
         os:             ['windows', 'ubuntu']
     runs-on: ${{ matrix.os }}-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python_version }}
-    - run:  pip wheel libpff-python==${{ github.event.inputs.package_version || env.DEFAULT_PACKAGE_VERSION }}
+    - run:  pip wheel libpff-python==${{ github.ref }}
     - name: 'Upload to Releases'
-      uses: xresloader/upload-to-github-release@v1.4.2
+      uses: xresloader/upload-to-github-release@v1
       with:
         file: "*.whl"
         release_id: 0
-        tag_name: ${{ github.event.inputs.package_version || env.DEFAULT_PACKAGE_VERSION }}
+        tag_name: ${{ github.ref }}
         prerelease: false
         draft: false
         update_latest_release: true
