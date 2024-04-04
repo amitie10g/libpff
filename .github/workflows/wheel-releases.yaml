@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python_version }}
-    - run:  pip wheel libpff-python==${{ github.ref }}
+    - run:  pip wheel libpff-python==${{ github.ref_name }}
     - name: 'Upload to Releases'
       uses: xresloader/upload-to-github-release@v1
       with:
