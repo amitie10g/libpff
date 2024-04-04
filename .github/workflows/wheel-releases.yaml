@@ -22,12 +22,6 @@ jobs:
       uses: xresloader/upload-to-github-release@v1
       with:
         file: "*.whl"
-        release_id: 0
-        tag_name: ${{ github.ref }}
         prerelease: false
         draft: false
-        update_latest_release: true
         default_release_body: 'Wheels precompiled for different versions of Python under Windows and Linux (Ubuntu).'
-
-env:
-  DEFAULT_PACKAGE_VERSION: '20231205'
